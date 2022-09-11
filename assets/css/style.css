@@ -1,0 +1,114 @@
+/* element selectors styling*/
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+  
+  
+  form label{
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+/*class selectors styling */
+  .jumbotron {
+    text-align: center;
+    background-image: linear-gradient(to right, rgb(62, 111, 192),rgb(38,19,94) );
+    color: white;
+    border-radius: 0;
+    border-bottom: 3px solid rgb(87, 87, 87);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    font-weight:bold
+  }
+
+
+.custom-card{
+    min-width: 200px;
+    background-color: rgb(52,71,90);
+    color:#FFF;
+}
+
+.custom-card h5{
+    font-size: 25px;
+    font-weight: bold;
+
+}
+.custom-card p{
+    font-weight: ;
+}
+/*autocomplete jquery tool styling*/
+.ui-autocomplete {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    float: left;
+    display: none;
+    min-width: 160px;   
+    padding: 4px 0 5px 5px;
+    margin: 0 0 10px 25px;
+    list-style: none;
+    background-color: #ffffff;
+    border-color: #ccc;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+.ui-menu-item {
+    display: block;
+    padding: 10px 10px 10px 10px;
+    margin: 2px 2px;
+    clear: both;
+    font-weight: normal;
+    line-height: 33px;
+    color: #555555;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.ui-state-hover, .ui-state-active {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #0088cc;
+    border-radius: 0px;
+    cursor: pointer;
+}
+
+/*uv background color styling*/
+.uv-low{
+    background-color: rgb(148, 197, 144);
+}
+.uv-mod{
+    background-color: rgb(248,220,74);
+}
+.uv-high{
+    background-color: rgb(233,159,64);
+}
+.uv-vhigh{
+    background-color: rgb(216,56,49);
+}
+.uv-ext{
+    background-color: rgb(197,68,130);
+}
+
+/* ID Selectors Styling */
+#area-detail{
+    height:300px;
+    border: 1px solid #000;
+  }
+#search-list button {
+    float: right;
+    border: none;
+    cursor: pointer;
+    background-color: #474646;
+    color: white;
+    font-size: 1em;
+  }
+#city-uv{
+    padding: 5px;
+    border-radius: 10px;
+}

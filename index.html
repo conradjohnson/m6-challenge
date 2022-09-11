@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+        <link href="assets/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+    <section class="jumbotron d-flex flex-column col-12 text-center">
+        <h1 class="title">Weather Dashboard</h1>
+        <p>Current Time:  <span id="page-time"></span></p>
+    </section>
+    <main class="d-flex">
+        <aside class="col-lg-2 col-md-12">
+            <form class="form-group flex-column" id="search-form">
+                <h2>Search for a City:</h2>
+                <input type="text" id="city-search" class="form-control" placeholder="San Diego"/>
+                <button type="submit" class="w-100 mt-2 btn btn-primary">Search</button>
+            </form>
+            <div class="list-group m-2" id="search-list">
+                <!--Search List Items here are dynamically generated-->
+            </div>
+        </aside>
+        <section class="col-10 container">
+            <div class="col" id="area-detail">
+                <h2 id="h2-city-title">Select a City</h2>
+                <p>Temp: <span id="city-temp"></span></p>
+                <p>Wind: <span id="city-wind"></span></p>
+                <p>Humidity: <span id="city-humidity"></span></p>
+                <p>UV Index: <span id="city-uv"></span></p>
+            </div>
+            <div class="row">
+                <h3 id="h3-forecast-title">5-Day Forecast:</h3>
+            </div>
+            <div class="row" id="forecast-row">
+                <!--5 Day Forecast Items here are dynamically generated-->
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/cityauto.js"></script>
+</body>
+</html>
