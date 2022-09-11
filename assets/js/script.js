@@ -53,7 +53,7 @@ function addToList(event){
     if (citySearchList.indexOf(cityToAdd) == -1){
         let cityLabel = cityToAdd.split(', ');
         //see if the city resolves with OWM api
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityLabel[0]).trim()},${encodeURIComponent(cityLabel[1].trim())},US&limit=1&appid=${apiKey}`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(cityLabel[0]).trim()},${encodeURIComponent(cityLabel[1].trim())},US&limit=1&appid=${apiKey}`)
         .then( function(response){
             return response.json();
         })
@@ -108,7 +108,7 @@ function listClick(event){
 function cityDetail(cityNameSt){
     
     // first, lets get the lat/long for the city, st combo
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityNameSt},US&limit=1&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityNameSt},US&limit=1&appid=${apiKey}`)
     .then( function(response){
         return response.json();
     })
@@ -124,7 +124,7 @@ function cityDetail(cityNameSt){
         .then( function(data) {
             //set the UI Elements to values of the weather details
             cityTitle.text(cityNameSt);
-            cityTitle.append(`<img src="http://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${cityNameSt + " weather icon"}"/>`);
+            cityTitle.append(`<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${cityNameSt + " weather icon"}"/>`);
             cityTemp.text(data.main.temp + "°F");
             cityWind.text(data.wind.speed + " MPH");
             cityHumidity.text(data.main.humidity+ " %");
@@ -183,7 +183,7 @@ function cityDetail(cityNameSt){
 //function to populate our 5 day forecast based on the lat/long passed
 function cityForecast(lat,lon){
     //get the 5 day forecast array
-    fetch(`http://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
     .then( function(response){
         return response.json();
     })
@@ -225,7 +225,7 @@ function appendForecastCard(forecast, date){
     let card = `<div class="card col-lg-2 col-md-6 col-sm-6 m-2 p-0 custom-card" style="width: 200px;">
                     <div class="card-body">
                     <h5 class="card-title">${date}</h5>
-                    <img src="http://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${date + " forecast icon"}"/>
+                    <img src="https://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${date + " forecast icon"}"/>
                     <p class="card-text">Temp: ${forecast.main.temp} °F</p>
                     <p class="card-text">Wind: <span class="font-weight-bold">${forecast.wind.speed} MPH</span></p>
                     <p class="card-text">Humidity: <span class="font-weight-bold">${forecast.main.humidity} %</span></p>
