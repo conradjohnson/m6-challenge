@@ -11649,6 +11649,7 @@ $(function () {
     "Fort Riley North, KS",
     "K. I. Sawyer Air Force Base, MI",
     "Level Park-Oak Park, MI",
+    "Stowe, VT",
     "Manitou Beach-Devils Lake, MI",
     "Minot Air Force Base, ND",
     "Montrose-Ghent, OH",

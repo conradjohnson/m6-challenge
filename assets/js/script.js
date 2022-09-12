@@ -106,29 +106,37 @@ function listClick(event){
 
 // function to populate UI for City Detail
 function cityDetail(cityNameSt){
-    
+    console.log(cityNameSt);
+    let cityLabel = cityNameSt.split(', ');
+    console.log('"'+cityLabel[0]+'", "'+ cityLabel[1]+'"');
+    console.log(`https://api.openweathermap.org/geo/1.0/direct?q=${cityLabel[0]},${cityLabel[1]},US&limit=1&appid=${apiKey}`);
+    console.log(`https://api.openweathermap.org/data/2.5/forecast?q=${cityLabel[0]},${cityLabel[1]},US&units=imperial&appid=${apiKey}`);
     // first, lets get the lat/long for the city, st combo
-    fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityNameSt},US&limit=1&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityLabel[0]},${cityLabel[1]},US&units=imperial&appid=${apiKey}`)
     .then( function(response){
         return response.json();
     })
     .then( function(data) {
-        console.log(data);
-        // now let's get the weather report for that lat/long combo
-        let lat = data[0].lat;
-        let lon = data[0].lon;
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
-        .then( function(response){
+        //set the UI Elements to values of the weather details
+        cityTitle.text(cityNameSt);
+        cityTitle.append(`<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${cityNameSt + " weather icon"}"/>`);
+        cityTemp.text(data.main.temp + "°F");
+        cityWind.text(data.wind.speed + " MPH");
+        cityHumidity.text(data.main.humidity+ " %");
+        
+        //get the geocoding here for the UV Index
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityLabel[0]},${cityLabel[1]},US&limit=1&appid=${apiKey}`)
+        .then(function(response){
             return response.json();
         })
-        .then( function(data) {
-            //set the UI Elements to values of the weather details
-            cityTitle.text(cityNameSt);
-            cityTitle.append(`<img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png" alt="${cityNameSt + " weather icon"}"/>`);
-            cityTemp.text(data.main.temp + "°F");
-            cityWind.text(data.wind.speed + " MPH");
-            cityHumidity.text(data.main.humidity+ " %");
-            
+        .then( function(geocodes){
+            // get the lat/lon values.
+            // there is a bug in here where we don't qualify the state with the API
+            // use case: Breckenridge, CO will return the UV index of Breckenridge, TX
+            // as we only accept the 1st data object ("...&limit1..."), otherwise we'd need to read the whole list and 
+            // resolve the state code with the API value of long state name. (does 'Colorado' equal 'CO'?)
+            let lat = geocodes[0].lat;
+            let lon = geocodes[0].lon;
             // now lets get the UV Index:
             fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`)
             .then(function(response){
@@ -170,20 +178,22 @@ function cityDetail(cityNameSt){
                 }
                 
             });
+        });
+
             
 
-        });
+       
         // call our city Forecast function to populate the 5 day forecast cards
-        cityForecast(lat, lon);
+        cityForecast(cityLabel[0], cityLabel[1]);
     });
 
 }
 
 
 //function to populate our 5 day forecast based on the lat/long passed
-function cityForecast(lat,lon){
+function cityForecast(city,state){
     //get the 5 day forecast array
-    fetch(`https://api.openweathermap.org/data/2.5/forecast/?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city},${state},US&units=imperial&appid=${apiKey}`)
     .then( function(response){
         return response.json();
     })
@@ -200,7 +210,9 @@ function cityForecast(lat,lon){
         // the 16 day api would have been better to avoid this technique
         // but that is a paid service.
         let dateTarget = moment().add(1, 'days').set("hour", 18).set("minute", 00).set("second", 00).format('YYYY-MM-DD HH:mm:ss');
-        
+        // since we need to use the above technique, we might not poll the API late enough in the day to get a 5th day.
+        //   let's check to see if we have 5 days total. 
+        let daysFound = 0;
         for (let i=0; i<forecast.length; i++ ){
             let dateString = forecast[i].dt_txt;
             // if we hit our date/time target, then add the card.
@@ -210,8 +222,18 @@ function cityForecast(lat,lon){
                 appendForecastCard(forecast[i], moment(dateString).format('M/D/YYYY'));
                 // advance the dateTarget to get the next day at the target hour
                 dateTarget = moment(dateTarget).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
+                // advance the days found
+                daysFound++;
                 
             }
+        }
+        // if too early in the day, then the API doesn't give us a slot for the last day and only gives us 4 day forecast.
+        //   in this case, we'll use the last object in the forecast as the 5th day. 
+        if (daysFound < 5){
+            // advance the dateTarget object for our date label.
+            dateTarget = moment(dateTarget).format('M/D/YYYY');
+            // draw the last card for the last object in forecast.
+            appendForecastCard(forecast[forecast.length-1], dateTarget);
         }
         
 
