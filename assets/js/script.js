@@ -224,7 +224,6 @@ function cityForecast(city,state){
                 dateTarget = moment(dateTarget).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
                 // advance the days found
                 daysFound++;
-                
             }
         }
         // if too early in the day, then the API doesn't give us a slot for the last day and only gives us 4 day forecast.
@@ -244,7 +243,7 @@ function cityForecast(city,state){
 //function to populate 1 forecast card
 function appendForecastCard(forecast, date){
     // build card from forecast object data and date string passed
-    let card = `<div class="card col-lg-2 col-md-6 col-sm-6 m-2 p-0 custom-card" style="width: 200px;">
+    let card = `<div class="card col-lg-2 col-md-6 col-sm-6 m-2 p-0 custom-card">
                     <div class="card-body">
                     <h5 class="card-title">${date}</h5>
                     <img src="https://openweathermap.org/img/w/${forecast.weather[0].icon}.png" alt="${date + " forecast icon"}"/>

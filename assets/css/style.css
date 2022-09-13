@@ -26,6 +26,8 @@ body {
 
 .custom-card{
     min-width: 200px;
+    width: 200px; 
+    max-width: 200px;
     background-color: rgb(52,71,90);
     color:#FFF;
 }

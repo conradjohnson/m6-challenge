@@ -15,8 +15,8 @@
         <h1 class="title">Weather Dashboard</h1>
         <p>Current Time:  <span id="page-time"></span></p>
     </section>
-    <main class="d-flex">
-        <aside class="col-lg-2 col-md-12">
+    <main class="d-flex flex-wrap">
+        <aside class="col-lg-2 col-md-12 col-sm-12">
             <form class="form-group flex-column" id="search-form">
                 <h2>Search for a City:</h2>
                 <input type="text" id="city-search" class="form-control" placeholder="San Diego"/>
@@ -26,7 +26,7 @@
                 <!--Search List Items here are dynamically generated-->
             </div>
         </aside>
-        <section class="col-10 container">
+        <section class="col-lg-10 col-md-12 col-sm-12">
             <div class="col" id="area-detail">
                 <h2 id="h2-city-title">Select a City</h2>
                 <p>Temp: <span id="city-temp"></span></p>
