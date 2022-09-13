@@ -102,6 +102,12 @@ body {
     height:300px;
     border: 1px solid #000;
   }
+#area-detail h2{
+  font-size:30px;
+}
+#search-form h2{
+  font-size:20px;
+}
 #search-list button {
     float: right;
     border: none;
